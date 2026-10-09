@@ -1,71 +1,84 @@
-# Traffic Sign Recognition using VGG16
+# Traffic Sign Recognition with Deep Learning (VGG16)
 
-Deep learning project for **image classification of 58 traffic sign classes**, with an interactive **Streamlit** interface.
+**Traffic sign image classification using transfer learning, TensorFlow/Keras and an interactive Streamlit web application.**
 
-## Overview
+## Project overview
 
-This project uses **transfer learning / fine-tuning of VGG16** (ImageNet pretrained) with TensorFlow/Keras. Users can upload a traffic sign image to the Streamlit app and obtain the predicted class and model score.
+This academic computer vision project aims to classify traffic sign images into **58 categories**. It uses a pretrained **VGG16** convolutional neural network, a custom classification head and fine-tuning. A Streamlit interface allows users to upload an image and display the predicted traffic sign category and model score.
 
-## Tech stack
+## Results
 
-- Python, TensorFlow / Keras, VGG16
-- OpenCV, NumPy, Pillow
-- Streamlit
-- Jupyter Notebook
+| Metric | Recorded result |
+|---|---:|
+| Test accuracy | **99.57%** |
+| Test loss (categorical cross-entropy) | **0.0305** |
+| Number of classes | **58** |
+| Images in dataset | **4,047** (project presentation) |
+| Input size | **224 × 224 RGB** |
 
-## Approach
+**Source:** Results recorded in `notebooks/report_original.ipynb`, which includes `model.evaluate(test_data)` returning accuracy `0.9956803321838379` and loss `0.03052254021167755`. These are historical experimental results, **not an independent reproduction or a production benchmark**. The original dataset is not included in this repository.
 
-1. Dataset: approximately **4,047 images** (as described in the project presentation).
-2. Data split: **80% training, 10% validation, 10% testing**.
-3. Preprocessing: resize to **224 × 224**, normalize RGB pixel values to [0, 1].
-4. Training augmentation: shifts, brightness changes, zoom, shear and rotation.
-5. Classification: fine-tuned VGG16 backbone followed by a custom fully connected classifier for **58 classes**.
-6. Inference: Streamlit app shows the predicted class and prediction score.
+## Methodology
 
-## Run the app locally
+1. **Dataset preparation:** Labeled images of traffic signs. The project presentation describes an 80% training / 10% validation / 10% test split.
+2. **Preprocessing:** Resize images to 224 × 224 pixels and rescale pixel values by `1/255`.
+3. **Data augmentation:** Apply small translations, brightness changes, zoom, shear and rotations to training images.
+4. **Transfer learning:** Initialize VGG16 with ImageNet weights (`include_top=False`).
+5. **Fine-tuning:** Freeze the first 17 backbone layers in the original training script, leaving the later layers trainable. Add batch normalization, pooling, dropout and fully connected layers with 1,024, 512 and 256 units. Final softmax output has 58 units.
+6. **Training:** Categorical cross-entropy with SGD, a configured 20-epoch training run and batch size 32.
+7. **Evaluation:** Review test loss/accuracy and training curves in the supplied notebooks.
+8. **Demo:** Upload a JPG or PNG image through Streamlit for classification.
 
-> Compatibility note: the model was saved with **Keras 2.10**. For best compatibility, use **Python 3.10**, TensorFlow 2.10.1 and the versions from `requirements.txt`. The saved model has not been runtime-tested in this packaged repository.
+## Technologies
 
-```bash
-python3.10 -m venv .venv
-source .venv/bin/activate  # Linux/macOS
-pip install -r requirements.txt
-streamlit run app.py
-```
+- **Language:** Python
+- **Deep learning:** TensorFlow, Keras, VGG16
+- **Image processing:** OpenCV, Pillow, NumPy
+- **Web application:** Streamlit
+- **Experiments:** Jupyter Notebook
 
-**Windows activation:** `.venv\Scripts\activate`
-
-The application loads `model.json` (architecture) and `model.h5` (weights). Both must remain in the repository root.
-
-## Repository structure
+## Project structure
 
 ```text
 traffic-sign-recognition/
-├── app.py                        # Streamlit inference interface
-├── train_model.py                # Original training script
-├── model.json                    # Saved model architecture
-├── model.h5                      # Saved trained weights (~77 MB)
+├── app.py                           # Streamlit classification app
+├── train_model.py                   # Training and analysis script
+├── model.json                       # Model architecture
+├── model.h5                         # Trained model weights
 ├── notebooks/
 │   ├── traffic_sign_recognition.ipynb
-│   └── report_original.ipynb
+│   └── report_original.ipynb        # Original experiments and evaluation
 ├── docs/
-│   └── SPEECH.docx
+│   └── SPEECH.docx                  # Project presentation notes
 ├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
-## Training and reproduction
+## Run locally
 
-The training script and notebooks contain **original local Windows paths** to the dataset, which **is not included**. Update those paths to your own dataset before retraining. The app can be used directly with the included trained model (subject to environment compatibility).
+> **Compatibility:** The supplied model was originally saved with Keras 2.10. The packaged application has not been verified end-to-end in a fresh environment. TensorFlow 2.10.1 works with Python 3.10 on supported platforms.
 
-## Limitations
+```bash
+python3.10 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+streamlit run app.py
+```
 
-- This is a traffic sign **image classification** project, not a full object detection or real-time traffic scene recognition system.
-- No validated accuracy figure is included here: refer to the notebook results for experiment-specific metrics.
-- The class names shown by the Streamlit app come from its built-in label mapping; verify them against the actual dataset label order before relying on predictions.
-- The optional university logo referenced in the original code was not provided, so the packaged app skips it when absent.
+Open the local URL printed by Streamlit, upload a traffic sign image (`.jpg` or `.png`), and inspect the output. Keep both `model.json` and `model.h5` beside `app.py`.
 
-## Contributors
+## Screenshots
 
-Amine Chelabi
+A screenshot of a successful Streamlit prediction can be added here once the app has been tested locally. No screenshot is included because one was not provided or verified.
+
+## Notes and limitations
+
+- The project performs **classification of uploaded images**, not full-scene object detection or autonomous driving perception.
+- The original training code uses local Windows dataset paths: these must be changed before reproducing training.
+- The dataset itself is **not included** in this repository.
+- Verify the Streamlit label dictionary against the original dataset class ordering before treating predicted names as validated.
+- Model accuracy on this test split does not establish robustness on unseen real-world driving scenes.
+- `model.h5` is around 77 MB, so GitHub warns about its size; Git LFS is an option for future large artifacts.
+
+
