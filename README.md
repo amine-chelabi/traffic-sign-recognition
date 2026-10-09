@@ -68,8 +68,6 @@ streamlit run app.py
 
 Open the local URL printed by Streamlit, upload a traffic sign image (`.jpg` or `.png`), and inspect the output. Keep both `model.json` and `model.h5` beside `app.py`.
 
-## Screenshots
-
 
 ## Streamlit Demo
 
