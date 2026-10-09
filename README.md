@@ -70,8 +70,14 @@ Open the local URL printed by Streamlit, upload a traffic sign image (`.jpg` or 
 
 ## Screenshots
 
-A screenshot of a successful Streamlit prediction can be added here once the app has been tested locally. No screenshot is included because one was not provided or verified.
 
+## Streamlit Demo
+
+The application allows users to upload traffic sign images and classify them using the trained VGG16 model.
+
+Example: No Entry traffic sign — Class 55 — Model score: 99.99%.
+
+![Streamlit Demo](docs/streamlit_demo.png)
 ## Notes and limitations
 
 - The project performs **classification of uploaded images**, not full-scene object detection or autonomous driving perception.
