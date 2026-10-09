@@ -2,9 +2,7 @@
 """
 Created on Tue Mar 19 13:49:22 2024
 
-@author: BELBEKRI Mohammed Bouziane 
-         BRAHIMI Youcef
-         CHELABI Amine
+@author: CHELABI Amine
 """
 
 import splitfolders
