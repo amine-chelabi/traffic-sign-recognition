@@ -1,5 +1,6 @@
-streamlit>=1.32,<2
+streamlit==1.22.0
 tensorflow==2.10.1
-numpy<1.24
-opencv-python-headless>=4.5,<5
-Pillow>=9,<11
+protobuf==3.19.6
+numpy==1.23.5
+opencv-python-headless==4.7.0.72
+Pillow==9.5.0

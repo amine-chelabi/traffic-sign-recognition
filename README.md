@@ -82,3 +82,25 @@ A screenshot of a successful Streamlit prediction can be added here once the app
 - `model.h5` is around 77 MB, so GitHub warns about its size; Git LFS is an option for future large artifacts.
 
 
+
+## Training and evaluation visualizations
+
+The following figures come from the original project presentation. They document the recorded experiment; the original dataset is no longer available for independent reproduction.
+
+### Training and validation accuracy
+
+Both training and validation accuracy increased across the recorded epochs.
+
+![Training and validation accuracy](docs/accuracy.png)
+
+### Training and validation loss
+
+Both training and validation loss decreased across the recorded epochs.
+
+![Training and validation loss](docs/loss.png)
+
+### Confusion matrix (58 classes)
+
+Most nonzero entries appear along the diagonal of the provided confusion matrix. The underlying evaluation split and class-name correspondence have not been independently verified.
+
+![Confusion matrix](docs/confusion_matrix.png)
