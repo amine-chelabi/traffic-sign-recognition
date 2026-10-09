@@ -68,4 +68,4 @@ The training script and notebooks contain **original local Windows paths** to th
 
 ## Contributors
 
-Amine Chelabi, Youcef Brahimi, Mohammed Bouziane Belbekri (as credited in the supplied training code).
+Amine Chelabi
